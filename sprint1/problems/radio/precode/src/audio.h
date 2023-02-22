@@ -8,6 +8,13 @@
 #include <chrono>
 #include <vector>
 
+enum ProgType
+{
+	Server,
+	Client,
+	Unknown
+}  ;
+
 class Recorder {
     static void Callback(ma_device* pDevice, void* pOutput, const void* pInput,
                          ma_uint32 frameCount) {
