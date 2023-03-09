@@ -2,8 +2,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-
 #include "tagged.h"
+#include <iostream>
 
 namespace model {
 
@@ -28,6 +28,7 @@ struct Offset {
 };
 
 class Road {
+public:
     struct HorizontalTag {
         explicit HorizontalTag() = default;
     };
@@ -65,7 +66,8 @@ public:
     Point GetEnd() const noexcept {
         return end_;
     }
-
+    std::string GetDescr() const;
+    std::string GetEndDescr() const;
 private:
     Point start_;
     Point end_;
@@ -124,7 +126,6 @@ public:
         : id_(std::move(id))
         , name_(std::move(name)) {
     }
-
     const Id& GetId() const noexcept {
         return id_;
     }
@@ -154,7 +155,11 @@ public:
     }
 
     void AddOffice(Office office);
-
+    
+    std::string GetDescr() const;
+    std::string GetDescrOfRoads() const;
+    std::string GetDescrOfBuildings() const ;
+    std::string GetDescrOfOffices() const ;
 private:
     using OfficeIdToIndex = std::unordered_map<Office::Id, size_t, util::TaggedHasher<Office::Id>>;
 
@@ -183,6 +188,7 @@ public:
         }
         return nullptr;
     }
+    void fill(std::string   input) ;
 
 private:
     using MapIdHasher = util::TaggedHasher<Map::Id>;
@@ -191,5 +197,6 @@ private:
     std::vector<Map> maps_;
     MapIdToIndex map_id_to_index_;
 };
+
 
 }  // namespace model
